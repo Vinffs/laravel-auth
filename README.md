@@ -7,198 +7,21 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
-## Installazione Laravel
+# LARAVEL AUTH
 
-```bash
-cd your parent_folder_path
+creiamo con Laravel il nostro sistema di gestione del nostro Portfolio di progetti. <br>
 
-#con laravel installer
-laravel new your_project_name_here
+Oggi iniziamo un nuovo progetto che si arricchirà nel corso delle prossime lezioni: man mano aggiungeremo funzionalità e vedremo la nostra applicazione crescere ed evolvere. <br>
 
-#per versione 9
-composer create-project --prefer-dist laravel/laravel:^9.2 your_project_name_here
+Nel pomeriggio, rifate ciò che abbiamo visto insieme stamattina stilando tutto a vostro piacere utilizzando SASS. <br>
 
-cd your_project_name_here
+## Descrizione:
+- Ripercorriamo gli steps fatti a lezione ed iniziamo un nuovo progetto usando laravel breeze ed il pacchetto con autenticazione (utilizzate il template su github).
+- Iniziamo con il definire il layout, modello, migrazione, controller e rotte necessarie per il sistema portfolio:
+- Autenticazione: si parte con l'autenticazione e la creazione di un layout per back-office <br>
+- Creazione del modello `Project` con relativa migrazione, seeder, controller, validazioni e rotte <br>
+- Per la parte di back-office creiamo un resource controller `Admin\ProjectController` per gestire tutte le operazioni CRUD dei progetti <br>
+- Implementare la visualizzazione dei dati nella index dei progetti con una tabella (con bottoni per show, edit, e delete) <br>
 
-code . -r
-
-php artisan serve
-
-ctrl + c
-
-```
-## Configurazione Laravel
-```bash
-npm remove postcss
-
-#installo dbal per migration e seeder
-composer require doctrine/dbal
-
-composer require guzzlehttp/guzzle
-
-composer require laravel/breeze --dev
-php artisan breeze:install #blade
-
-
-composer require pacificdev/laravel_9_preset
-
-#solo per versione 9
-php artisan preset:ui bootstrap --auth
-
-npm install bootstrap axios @fortawesome/fontawesome-free sass
-
-#in vite config aggiungo agli alias
-'~@fortawesome': path.resolve(__dirname, 'node_modules/@fortawesome'),
-
-#copio la cartella dei webfont e se voglio la rinomino e la copio nella cartella font
-
-#app.js
-import "./bootstrap";
-import "~resources/scss/app.scss";
-import * as bootstrap from "bootstrap";
-import.meta.glob(["../img/**", "../fonts/**"]);
-
-#app.scss
-@use './partials/variables' as *;
-
-$fa-font-path: "../fonts/webfonts" !default;
-
-@import "~@fortawesome/fontawesome-free/scss/fontawesome";
-@import "~@fortawesome/fontawesome-free/scss/regular";
-@import "~@fortawesome/fontawesome-free/scss/solid";
-@import "~@fortawesome/fontawesome-free/scss/brands";
-
-@import '~bootstrap/scss/bootstrap';
-
-h1 {
-    color: $text-color;
-}
-
-#vite.config.js
-import { defineConfig } from "vite";
-import laravel from "laravel-vite-plugin";
-import * as path from "path";
-
-export default defineConfig({
-    plugins: [
-        laravel({
-            input: ["resources/scss/app.scss", "resources/js/app.js"],
-            refresh: true,
-        }),
-    ],
-    // Add resolve object and aliases
-    resolve: {
-        alias: {
-            "~bootstrap": path.resolve(__dirname, "node_modules/bootstrap"),
-            "~@fortawesome": path.resolve(
-                __dirname,
-                "node_modules/@fortawesome"
-            ),
-            "~resources": "/resources/",
-        },
-    },
-});
-
-#sistemo (cambio/rimuovo) template e routing
-
-#volendo personalizzo paginazione e pagine di errore
-php artisan vendor:publish --tag=laravel-errors
-php artisan vendor:publish --tag=laravel-pagination
-
-#comandi git
-
-git init
-git add .
-git commit -m "first commit"
-git branch -M main
-git remote add origin your_git_url 
-git push -u origin main
-
-
-```
-## Clono progetto da github 
-
-```bash
-# copio file .env.example e lo rinomino in .env
-
-composer install
-
-php artisan key:generate
-
-npm install
-
-# creo il database da phpmyadmin
-
-# inserisco i dati per il collegamento al db in env
-
-#creo migration
-php artisan make:migration create_nome_tabella_table
-php artisan make:migration update_users_table --table=users
-php artisan make:migration add_phone_number_to_users_table
-
-#lanciare migration
-php artisan migrate
-
-#revert migration
-php artisan migrate:rollback
-
-
-#popolare il db
-php artisan make:seeder UsersTableSeeder
-
-php artisan db:seed --class=UsersTableSeeder
-
-# preparo le rotte file web.php es. 
-Route::get('/books', [BookController::class, 'index'])->name('books.index');
-# oppure resource route per tutte le operazioni CRUD
-Route::resource('books', BookController::class);
-
-# creo controller
-php artisan make:controller NomeController
-#con opzione resource controller
-php artisan make:controller NomeController --resource
-
-
-#creo model
-php artisan make:model Nome 
-#posso creare il model e contestualmente resource controller, migration, seeder e form request per validazioni
-php artisan make:model Nome -rcms --requests
-
-# creo le views relative
-
-#creo form request per validazione
-	
-php artisan make:request StoreMomemodelRequest
-
-
-```
-## Auth
-
-```bash
-#in app/Providers/RouteServiceProvider.php modifico
-public const HOME = '/admin';
-
-# Se l’utente non è autenticato, sarà dirottato automaticamente verso la pagina di login.
-# Questo comportamento è modificabile nel file in app/Http/Middleware/Authenticate.php
-
-php artisan make:controller Admin/DashboardController
-# nel controller
-public function index(){
-        return view('admin.dashboard');
-    }
-
-Route::middleware(['auth', 'verified'])
-   ->name('admin.')
-   ->prefix('admin')
-   ->group(function () {
-         Route::get('/', [DashboardController::class, 'index'])
-         ->name('dashboard');
-   });
-
-....
-
-Route::fallback(function() {
-    return redirect()->route('admin.dashboard');
-});
-
-```
+## Bonus
+Iniziare ad implementare un template (con relativi partials) per una dashboard di amministrazione
