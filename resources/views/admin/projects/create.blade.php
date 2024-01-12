@@ -1,19 +1,25 @@
 @extends('layouts.app')
 
-@section('title', 'Create a New Post')
+@section('title', 'Create a New Project')
 
 @section('content')
     <main>
         <section class="container">
-            <div class="d-flex justify-content-between align-items-center">
-                <h1>Add a new project</h1>
-                <a href="{{ route('admin.projects.index') }}" class="btn btn-primary">Return</a>
-            </div>
+            <h1>Add a new project</h1>
             <div class="row gy-4">
                 <div class="col-12">
                     <div class="card">
                         <form action="{{ route('admin.projects.store') }}" method="POST">
                             @csrf
+                            <div class="mb-3 mx-3">
+                                <label for="image" class="form-label">Primary Language or Framework:</label>
+                                <input type="text" class="form-control @error('image') is-invalid @enderror"
+                                    id="image" name="image" placeholder="insert image url"
+                                    value="{{ old('image') }}">
+                            </div>
+                            @error('image')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                             <div class="mb-3 mx-3">
                                 <label for="title" class="form-label">Title:</label>
                                 <input type="text" value="{{ old('title') }}"
@@ -24,27 +30,13 @@
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                             <div class="mb-3 mx-3">
-                                <label for="body" class="form-label">Description:</label>
-                                <textarea name="body" id="body" cols="20" rows="10"
-                                    class="form-control @error('body') is-invalid @enderror">
+                                <label for="description" class="form-label">description:</label>
+                                <textarea name="description" id="description" cols="30" rows="10"
+                                    class="form-control @error('description') is-invalid @enderror">
                                     {{ old('description') }}
                                 </textarea>
                             </div>
                             @error('body')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                            <div class="mb-3 mx-3">
-                                <select class="form-select" aria-label="Default select example">
-                                    <option value="" disabled selected>Select the primary language or framework
-                                    </option>
-                                    <option value="html">HTML</option>
-                                    <option value="css">CSS</option>
-                                    <option value="js">Javascript</option>
-                                    <option value="vue">VueJS</option>
-                                    <option value="laravel">Laravel</option>
-                                </select>
-                            </div>
-                            @error('image')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                             <div class="mb-3 mx-3">

@@ -34,9 +34,10 @@
                         <td>{{ $project->title }}</td>
                         <td>{{ $project->description }}</td>
                         <td>
-                            <span class="btn border"><i class="fa-solid fa-circle-info"></i></span>
-                            <span class="btn border"><i class="fa-solid fa-pencil"></i></span>
-                            <span class="btn border"><i class="fa-solid fa-trash-can"></i></span>
+                            <a class="btn border" href="{{ route('admin.projects.show', $project->id) }}"><i
+                                    class="fa-solid fa-circle-info"></i></a>
+                            <a class="btn border"><i class="fa-solid fa-pencil"></i></a>
+                            <a class="btn border"><i class="fa-solid fa-trash-can"></i></a>
                         </td>
                     </tr>
                 @endforeach
