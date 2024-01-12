@@ -1,7 +1,11 @@
 @extends('layouts.app')
 @section('content')
     <section class="container">
-        <h1>PROJECT LIST</h1>
+        <div class="d-flex justify-content-between align-items-center my-2">
+            <h1>PROJECT LIST</h1>
+            <a href="{{ route('admin.projects.create') }}" class="btn btn-primary">Add a Project</a>
+        </div>
+
 
         <table class="table table-hover">
             <thead>
@@ -40,4 +44,3 @@
         </table>
     </section>
 @endsection
-{{-- <p><a href="{{ route('admin.projects.show', $project->id) }}">{{ $project->title }}</a></p> --}}
