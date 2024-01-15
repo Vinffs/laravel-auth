@@ -9,7 +9,7 @@
             <div class="row gy-4">
                 <div class="col-12">
                     <div class="card">
-                        <form action="{{ route('admin.projects.store') }}" method="POST">
+                        <form action="{{ route('admin.projects.store') }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="mb-3 mx-3">
                                 <label for="image" class="form-label">Primary Language or Framework:</label>
@@ -18,6 +18,15 @@
                                     value="{{ old('image') }}">
                             </div>
                             @error('image')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                            <div class="mb-3 mx-3">
+                                <label for="thumb" class="form-label">Choose an Image:</label>
+                                <input type="file" class="form-control @error('thumb') is-invalid @enderror"
+                                    id="thumb" name="thumb" placeholder="insert thumb url"
+                                    value="{{ old('thumb') }}">
+                            </div>
+                            @error('thumb')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                             <div class="mb-3 mx-3">

@@ -17,6 +17,7 @@ class ProjectSeeder extends Seeder
         foreach ($projects as $project) {
             $newPost = new Project();
             $newPost->image = $project['image'];
+            $newPost->thumb = $project['thumb'];
             $newPost->title = $project['title'];
             $newPost->description = $project['description'];
             $newPost->save();

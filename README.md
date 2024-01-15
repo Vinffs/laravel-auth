@@ -25,3 +25,8 @@ Nel pomeriggio, rifate ciò che abbiamo visto insieme stamattina stilando tutto 
 
 ## Bonus
 Iniziare ad implementare un template (con relativi partials) per una dashboard di amministrazione
+
+15/01
+
+Continuiamo a lavorare nella repo dei giorni scorsi e aggiungiamo un’immagine ai nostri progetti con il fileupload. <br>
+Ricordiamoci di creare il symlink con l’apposito comando artisan e di aggiungere l’attributo enctype="multipart/form-data" ai form di creazione e di modifica!

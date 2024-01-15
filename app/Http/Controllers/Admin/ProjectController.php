@@ -7,6 +7,7 @@ use App\Http\Requests\UpdateProjectRequest;
 use App\Models\Project;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
 
 class ProjectController extends Controller
 {
@@ -33,6 +34,10 @@ class ProjectController extends Controller
     public function store(StoreProjectRequest $request)
     {
         $formData = $request->validated();
+        if ($request->hasFile('thumb')) {
+            $thumb_path = Storage::put('uploads', $formData['thumb']);
+            $formData['thumb'] = $thumb_path;
+        }
         $newProject = Project::create($formData);
 
         return redirect()->route('admin.projects.show', $newProject->id);
@@ -61,6 +66,13 @@ class ProjectController extends Controller
     public function update(UpdateProjectRequest $request, Project $project)
     {
         $formData = $request->validated();
+        if ($request->hasFile('thumb')) {
+            if (Storage::exists($project->thumb)) {
+                Storage::delete($project->thumb);
+            }
+        }
+        $thumb_path = Storage::put('uploads', $formData['thumb']);
+        $formData['thumb'] = $thumb_path;
         $project->update($formData);
         return redirect()->route('admin.projects.show', $project->id);
     }
